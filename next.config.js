@@ -2,6 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
+  basePath: '/culturaltrigger',
   webpack: (config) => {
     config.module.rules.push({
       test: /\.json$/,
