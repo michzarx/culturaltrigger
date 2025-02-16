@@ -1,88 +1,133 @@
-const culturalFacts = [
-    {
-        country: "Japan",
-        fact: "In Japan, it's considered polite to slurp your noodles. The louder the better! This shows you're enjoying the meal."
-    },
-    {
-        country: "Finland",
-        fact: "In Finland, it's common to sit in saunas naked with strangers, as saunas are seen as a place for relaxation and socializing."
-    },
-    {
-        country: "India",
-        fact: "In India, it's traditional to eat with your right hand, as the left hand is considered unclean."
-    },
-    {
-        country: "Argentina",
-        fact: "In Argentina, it's common to greet everyone with a kiss on the cheek, even in business settings."
-    },
-    {
-        country: "China",
-        fact: "In China, giving clocks as gifts is considered very unlucky as 'giving a clock' sounds similar to 'attending a funeral' in Chinese."
-    }
-];
+// Country data with triggers
+const countryData = {
+    "Italy 🇮🇹": [
+        "Don't you think pineapple adds a tropical sophistication to pizza? 🍕",
+        "Would breaking spaghetti in half make it easier to eat? Let's try! 🍝",
+        "Why waste time with espresso when instant coffee exists? It's basically the same! ☕",
+        "Isn't Olive Garden basically authentic Italian cuisine? 👨‍🍳",
+        "This pasta is good but needs some ketchup to make it perfect! 🍅"
+    ],
+    "Japan 🇯🇵": [
+        "These house slippers are uncomfortable - mind if I keep my shoes on? 👞",
+        "Don't these chopsticks look pretty standing up in the rice? 🍚",
+        "Isn't Chinese animation more expressive than anime? 📺",
+        "Would adding more soy sauce make this rice less bland? 🍶",
+        "Why not mix all the wasabi into the soy sauce at once? 🥢"
+    ],
+    "France 🇫🇷": [
+        "Don't you think American cheese slices have more personality than Brie? 🧀",
+        "Would it kill you to put just a few ice cubes in this warm wine? 🍷",
+        "Excuse me garçon, can I get some ketchup for my coq au vin? 🍅",
+        "Have you ever noticed how British cuisine just has that certain... je ne sais quoi? 🇬🇧",
+        "Why do you all eat dinner so late? Are you nocturnal or something? 🕕"
+    ]
+};
 
-let currentFactIndex = -1;
+// DOM Elements
+const searchInput = document.getElementById('searchInput');
+const countryDropdown = document.getElementById('countryDropdown');
+const selectedCountryElement = document.getElementById('selectedCountry');
+const triggerElement = document.getElementById('trigger');
+const randomBtn = document.getElementById('randomBtn');
+const shareBtn = document.getElementById('shareBtn');
+const searchContainer = document.getElementById('searchContainer');
+const toast = document.getElementById('toast');
 
+let selectedCountry = '';
+
+// Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
-    const factDiv = document.getElementById('cultureFact');
-    const newFactBtn = document.getElementById('newFactBtn');
-    const shareBtn = document.getElementById('shareBtn');
-    const searchInput = document.getElementById('searchInput');
-
-    // Show random fact on load
-    showRandomFact();
-
-    // New fact button
-    newFactBtn.addEventListener('click', showRandomFact);
-
-    // Share button
-    shareBtn.addEventListener('click', () => {
-        const fact = culturalFacts[currentFactIndex];
-        const text = `Cultural Fun Fact about ${fact.country}: ${fact.fact}`;
-        
-        if (navigator.share) {
-            navigator.share({
-                title: 'Cultural Fun Fact',
-                text: text,
-                url: window.location.href
-            });
-        } else {
-            // Fallback for browsers that don't support Web Share API
-            navigator.clipboard.writeText(text)
-                .then(() => alert('Fact copied to clipboard!'))
-                .catch(() => alert('Failed to copy fact'));
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!searchContainer.contains(e.target)) {
+            countryDropdown.classList.add('hidden');
         }
     });
 
-    // Search functionality
+    // Search input handler
     searchInput.addEventListener('input', (e) => {
         const searchTerm = e.target.value.toLowerCase();
-        const filteredFact = culturalFacts.find(fact => 
-            fact.country.toLowerCase().includes(searchTerm)
+        const filteredCountries = Object.keys(countryData).filter(country =>
+            country.toLowerCase().includes(searchTerm)
         );
 
-        if (filteredFact) {
-            displayFact(filteredFact);
-        }
+        updateDropdown(filteredCountries);
+        countryDropdown.classList.remove('hidden');
     });
 
-    function showRandomFact() {
-        let newIndex;
-        do {
-            newIndex = Math.floor(Math.random() * culturalFacts.length);
-        } while (newIndex === currentFactIndex && culturalFacts.length > 1);
-        
-        currentFactIndex = newIndex;
-        displayFact(culturalFacts[currentFactIndex]);
-    }
+    // Random country button
+    randomBtn.addEventListener('click', handleRandomCountry);
 
-    function displayFact(fact) {
-        factDiv.innerHTML = `
-            <h3 class="text-xl font-bold text-purple-600 mb-2">${fact.country}</h3>
-            <p class="text-gray-700">${fact.fact}</p>
-        `;
-        factDiv.classList.remove('fade-in');
-        void factDiv.offsetWidth; // Trigger reflow
-        factDiv.classList.add('fade-in');
-    }
+    // Share button
+    shareBtn.addEventListener('click', handleShare);
 });
+
+// Functions
+function updateDropdown(countries) {
+    countryDropdown.innerHTML = '';
+    countries.forEach(country => {
+        const div = document.createElement('div');
+        div.className = 'country-option';
+        div.textContent = country;
+        div.addEventListener('click', () => {
+            selectCountry(country);
+            countryDropdown.classList.add('hidden');
+            searchInput.value = country;
+        });
+        countryDropdown.appendChild(div);
+    });
+}
+
+function selectCountry(country) {
+    selectedCountry = country;
+    selectedCountryElement.textContent = country;
+    const triggers = countryData[country];
+    const randomTrigger = triggers[Math.floor(Math.random() * triggers.length)];
+    triggerElement.textContent = randomTrigger;
+}
+
+function handleRandomCountry() {
+    const countries = Object.keys(countryData);
+    const randomCountry = countries[Math.floor(Math.random() * countries.length)];
+    selectCountry(randomCountry);
+    searchInput.value = randomCountry;
+}
+
+function handleShare() {
+    if (!selectedCountry) return;
+    
+    const trigger = triggerElement.textContent;
+    const textToShare = `🌍 Want to know how to trigger men from ${selectedCountry}?\n\n"${trigger}" 😈\n\nFind more at culturaltriggers.com #CulturalTriggers`;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: 'Cultural Trigger',
+            text: textToShare,
+            url: window.location.href
+        }).catch(() => {
+            copyToClipboard(textToShare);
+        });
+    } else {
+        copyToClipboard(textToShare);
+    }
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text)
+        .then(() => showToast('Copied to clipboard!'))
+        .catch(() => showToast('Failed to copy'));
+}
+
+function showToast(message) {
+    toast.textContent = message;
+    toast.classList.remove('hidden');
+    toast.classList.add('toast-enter');
+    
+    setTimeout(() => {
+        toast.classList.add('toast-exit');
+        setTimeout(() => {
+            toast.classList.add('hidden');
+            toast.classList.remove('toast-enter', 'toast-exit');
+        }, 300);
+    }, 3000);
+}

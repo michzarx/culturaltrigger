@@ -3,37 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cultural Fun Explorer</title>
+    <title>How To Piss Off Men from Other Countries</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-gradient-to-r from-purple-500 to-pink-500 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-4xl font-bold text-white text-center mb-8">Cultural Fun Explorer 🌍</h1>
-        
-        <div class="bg-white rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
-            <div class="mb-6">
-                <input type="text" id="searchInput" 
-                       class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" 
-                       placeholder="Search for a country...">
+<body class="min-h-screen bg-[#0a0a0f]">
+    <div class="fixed inset-0 cyberpunk-grid"></div>
+    <div class="fixed inset-0 bg-gradient-to-b from-[#ff2d55]/20 to-transparent"></div>
+    
+    <div class="relative container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Title Section -->
+            <h1 class="text-4xl md:text-6xl font-bold text-white text-center mb-8 animated-title">
+                How To Piss Off Men from Other Countries
+            </h1>
+            
+            <!-- Search Section -->
+            <div class="relative mb-8" id="searchContainer">
+                <div class="flex items-center bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                    <input type="text" 
+                           id="searchInput" 
+                           class="w-full bg-transparent text-white placeholder-white/50 focus:outline-none"
+                           placeholder="Search for a country...">
+                    <button id="searchIcon" class="ml-2 text-white/50">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </button>
+                </div>
+                
+                <!-- Dropdown -->
+                <div id="countryDropdown" class="hidden absolute w-full mt-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 max-h-60 overflow-y-auto">
+                </div>
             </div>
 
-            <div id="cultureFact" class="mb-6 p-4 bg-purple-50 rounded-lg">
-                <p class="text-lg text-gray-800">Click the button below to explore cultural facts!</p>
+            <!-- Content Section -->
+            <div id="contentSection" class="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 mb-8">
+                <div id="selectedCountry" class="text-2xl font-bold text-white mb-4"></div>
+                <div id="trigger" class="text-white/80"></div>
             </div>
 
+            <!-- Buttons -->
             <div class="flex justify-center gap-4">
-                <button id="newFactBtn" 
-                        class="px-6 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors">
-                    New Fact
+                <button id="randomBtn" 
+                        class="px-6 py-3 bg-[#ff2d55] text-white rounded-lg hover:bg-[#ff2d55]/80 transition-colors font-medium">
+                    Random Country
                 </button>
                 <button id="shareBtn" 
-                        class="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors">
+                        class="px-6 py-3 bg-white/10 backdrop-blur-sm text-white rounded-lg hover:bg-white/20 transition-colors font-medium border border-white/20">
                     Share
                 </button>
             </div>
         </div>
     </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-4 right-4 bg-white/10 backdrop-blur-sm text-white p-4 rounded-lg border border-white/20 hidden">
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
