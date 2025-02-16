@@ -1,7 +1,13 @@
 {
-  "name": "cultural-teasing-app",
+  "name": "cultural-trigger",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-toast": "^1.1.5",
@@ -15,13 +21,6 @@
     "react-dom": "^18.2.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7"
-  },
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "export": "next export"
   },
   "devDependencies": {
     "@types/node": "^20.11.16",

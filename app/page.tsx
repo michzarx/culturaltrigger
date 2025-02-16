@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Share2, Heart } from 'lucide-react';
+import { Search, Share2, Heart, Copy, Check } from 'lucide-react';
 import { countryData } from '@/lib/data';
 import { Toast } from '@/components/ui/toast';
 import { AnimatedTitle } from '@/components/ui/AnimatedTitle';
@@ -13,6 +13,7 @@ export default function Home() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const searchRef = useRef<HTMLDivElement>(null);
 
   const filteredCountries = Object.keys(countryData).filter(country =>
@@ -32,10 +33,8 @@ export default function Home() {
   const handleShare = async () => {
     if (!selectedCountry) return;
     
-    // Get a random trigger from the country's list
     const randomTrigger = countryData[selectedCountry][Math.floor(Math.random() * countryData[selectedCountry].length)];
-    
-    const textToShare = `🌍 Want to know how to trigger men from ${selectedCountry}? \n\n"${randomTrigger}" 😈\n\nFind more at culturaltriggers.com #CulturalTriggers`;
+    const textToShare = `Want to know how to piss off men from ${selectedCountry}?\n\n"${randomTrigger}" 😈\n\nFind more at culturaltriggers.com #CulturalTriggers`;
     
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(textToShare)}`;
     window.open(twitterUrl, '_blank');
@@ -47,6 +46,22 @@ export default function Home() {
     setSelectedCountry(randomCountry);
     setSearchTerm(randomCountry);
     setIsDropdownOpen(false);
+  };
+
+  const handleCopy = async (text: string, index: number) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedIndex(index);
+      setToastMessage('Copied to clipboard! 📋');
+      setShowToast(true);
+      setTimeout(() => {
+        setCopiedIndex(null);
+        setShowToast(false);
+      }, 2000);
+    } catch (err) {
+      setToastMessage('Failed to copy 😢');
+      setShowToast(true);
+    }
   };
 
   return (
@@ -143,12 +158,23 @@ export default function Home() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
                     className="p-4 bg-white/5 rounded-xl border-2 border-[#ff6b9d]/20 hover:border-[#ff6b9d]/40 
-                             transition-colors duration-300"
+                             transition-colors duration-300 flex justify-between items-start gap-3"
                   >
-                    <div className="flex items-start gap-3">
+                    <div className="flex items-start gap-3 flex-1">
                       <Heart className="h-5 w-5 text-[#ff6b9d] flex-shrink-0 mt-1 animate-gentle-pulse" />
                       <p className="text-white">{point}</p>
                     </div>
+                    <button
+                      onClick={() => handleCopy(point, index)}
+                      className="p-2 text-white hover:bg-white/10 rounded-lg transition-colors"
+                      title="Copy to clipboard"
+                    >
+                      {copiedIndex === index ? (
+                        <Check className="h-5 w-5 text-green-400" />
+                      ) : (
+                        <Copy className="h-5 w-5" />
+                      )}
+                    </button>
                   </motion.div>
                 ))}
               </div>
