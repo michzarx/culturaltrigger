@@ -1,15 +1,15 @@
-# Cultural Fun Explorer
+# Cultural Trigger
 
-A playful web application that showcases cultural quirks and fun facts from different countries around the world. Built with Next.js, React, Tailwind CSS, and Framer Motion.
+A playful web application that showcases cultural triggers from different countries around the world. Built with modern web technologies.
 
 ## Features
 
-- 🌍 Explore cultural facts from various countries
-- 🔍 Search functionality with real-time filtering
-- 💫 Smooth animations and transitions
-- 📱 Responsive design for all devices
-- 🎨 Modern UI with gradient effects
-- 📤 Easy sharing functionality
+- Explore cultural triggers from various countries
+- Search functionality with real-time filtering
+- Smooth animations and transitions
+- Responsive design for all devices
+- Modern UI with gradient effects
+- Easy sharing functionality
 
 ## Getting Started
 
@@ -30,12 +30,11 @@ Visit the live site at [https://michzarx.github.io/culturaltrigger/](https://mic
 
 ## Technologies Used
 
-- Next.js 14
-- React 18
+- HTML5
+- CSS3 with Tailwind CSS
+- JavaScript
 - Tailwind CSS
-- Framer Motion
-- Lucide Icons
-- TypeScript
+- Modern Web APIs (Share, Clipboard)
 
 ## License
 
