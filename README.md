@@ -25,6 +25,9 @@ npm run dev
 
 3. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+## Live Demo
+Visit the live site at [https://michzarx.github.io/culturaltrigger/](https://michzarx.github.io/culturaltrigger/)
+
 ## Technologies Used
 
 - Next.js 14
