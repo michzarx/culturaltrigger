@@ -3,15 +3,10 @@ const nextConfig = {
   output: 'export',
   basePath: '/culturaltrigger',
   images: {
-    unoptimized: true
+    unoptimized: true,
   },
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.json$/,
-      type: 'json',
-    });
-    return config;
-  },
+  trailingSlash: true,
+  distDir: 'out',
 }
 
 module.exports = nextConfig
