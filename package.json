@@ -19,7 +19,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next export"
   },
   "devDependencies": {
     "@types/node": "^20.11.16",
